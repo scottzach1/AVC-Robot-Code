@@ -1,0 +1,28 @@
+kd = 0.2;
+previousError
+derivativeError
+
+int proportionalError()
+    for (int i=0; i<320; i++)
+        proportionalError += (i - col/2) * get_pixel(rows/2, (cols-i), 3)
+    return proportionalError
+}
+
+int derviativeError()
+    
+    currentError = proportionalError() // same as current error
+    sleep(0.1)
+    derivativeError = kd * (currentError-previousError)
+    previousError = currentError
+    
+    return derivativeError
+}
+
+int main()
+    while(true)
+        takePicture()
+        motorSpeed = derviativeError();
+        setMotor(1, -motorSpeed);
+        setMotor(2, motorSpeed);
+    }
+}
