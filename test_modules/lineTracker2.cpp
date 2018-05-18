@@ -21,17 +21,15 @@ int derviativeError() {
     sleep1(0, 100000);
     derivativeError = kd * (currentError-previousError);
     previousError = currentError;
-
-    printf("%d\n", derivativeError);
+//    printf("%d\n", derivativeError);
 }
 
 int main() {
     init();
-    for (int i=0; i<10; i++) {
+    while(true) {
         take_picture();
         int motorSpeed = derviativeError();
         set_motor(1, -motorSpeed);
         set_motor(2, motorSpeed);
-        sleep1(1, 0);
     }
 }
