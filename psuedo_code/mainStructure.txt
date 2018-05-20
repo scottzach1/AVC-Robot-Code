@@ -1,0 +1,28 @@
+quadrant = 1
+
+while(quadrant == 1 ) {
+    doQuad1()
+    if (done) {
+        quadrant++
+    }
+}
+while(quadrant == 2 ) {
+    doQuad2()
+    if (done) {
+        quadrant++
+    }
+}
+while(quadrant == 3 ) {
+    doQuad3()
+    if (done) {
+        quadrant++
+    }
+}
+while(quadrant == 4 ) {
+    doQuad4()
+    if (done) {
+        quadrant++
+    }
+}
+
+dostopAll() // Robot has completed course.
