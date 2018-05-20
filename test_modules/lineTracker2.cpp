@@ -4,7 +4,7 @@
 // main structure https://github.com/kaiwhata/ENGR101-2017/wiki/PID-(Proportional-Integral-Derivative)-Control
 int kd = 0.2;
 int previousError = 0;
-int derivativeError;
+int leftDrive, rightDrive = 100;
 
 
 int proportionalError() {
@@ -15,12 +15,14 @@ int proportionalError() {
     return proportionalError;
 }
 
-int derviativeError() {
+int derivativeError() {
     int currentError = 0;
     currentError = proportionalError();
     sleep1(0, 100000);
-    derivativeError = kd * (currentError-previousError);
+    int derivativeError = kd * (currentError-previousError);
     previousError = currentError;
+    leftDrive += derivativeError;
+    rightDrive -= derivativeError;
 //    printf("%d\n", derivativeError);
 }
 
@@ -28,8 +30,8 @@ int main() {
     init();
     while(true) {
         take_picture();
-        int motorSpeed = derviativeError();
-        set_motor(1, -motorSpeed);
-        set_motor(2, motorSpeed);
+        derivativeError();
+        set_motor(1, -leftDrive);
+        set_motor(2, -rightDrive);
     }
 }
