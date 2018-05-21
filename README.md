@@ -21,9 +21,11 @@ Week 3:
     - writing core code of the robot - can go up till quadrant B, but can't detect and follow the line properly 
     
 Week 4:
- - completing core code for robot
+Monday 21st May
+- completing core code for robot
  - extending and improving code 
     - having problems with our code, robot keeps moving around in circles when code is executed and run 
+   
  
  - AVC progress report due Monday 21st May, 11.59pm 
  
