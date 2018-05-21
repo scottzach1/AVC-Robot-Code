@@ -1,9 +1,8 @@
 # avc
 Victoria University ENGR101 AVC Group Project
+Felix, Zac, Edward, Samantha
 
 Week 1:
-Felix, Zac, Edward, Samantha 
-
 Started building the robot 
 - the base and supporting structure of the robot 
 - attached the motors and wheels
@@ -11,6 +10,7 @@ Started building the robot
 Week 2:
 - attached the PCB and camera onto the front of the robot 
 - made structure for the IR sensors to attach to 
+- finished main build/structure of the robot 
 
 Week 3:
 - attached IR sensors
@@ -22,3 +22,7 @@ Week 3:
 Week 4:
  - completing core code for robot
  - extending and improving code 
+ 
+ - AVC progress report due Monday 21st May, 11.59pm 
+ 
+ Testing on Tuesday 29th May during our lab, 3pm - 5pm 
