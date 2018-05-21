@@ -1,5 +1,6 @@
 # avc
-Victoria University ENGR101 AVC Group Project
+Victoria University of Wellington - ENGR101 AVC Group Project
+
 Felix, Zac, Edward, Samantha
 
 Week 1:
@@ -22,6 +23,7 @@ Week 3:
 Week 4:
  - completing core code for robot
  - extending and improving code 
+    - having problems with our code, robot keeps moving around in circles when code is executed and run 
  
  - AVC progress report due Monday 21st May, 11.59pm 
  
