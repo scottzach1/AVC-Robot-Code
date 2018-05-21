@@ -28,9 +28,9 @@ WEEK 4:
 Monday 21st May
 - completing core code for robot
  - extending and improving code 
-    - having problems with our code, robot keeps moving around in circles when code is executed and run 
-    - also found a problem that the right motor of the robot was turning the wheel backwards (left motor was going in the           right direction)
-    - settling with the DELL slider instead of the marble roller as not necessary and the DELL slider works perfectly fine 
+    - having problems with our code, robot keeps moving around in circles when code is executed and run - FIXED
+    - also found a problem that the right motor of the robot was turning the wheel backwards (left motor was going in the           right direction) - FIXED 
+    - settling with the DELL slider instead of the marble roller as not necessary and the DELL slider works perfectly fine
    
  
  - AVC progress report due Monday 21st May, 11.59pm 
