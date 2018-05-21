@@ -14,7 +14,7 @@ Week 2:
 - finished main build/structure of the robot 
 
 Week 3:
-- attached IR sensors
+- attached IR sensors on both sides of the robot but not on the front 
 - began coding for different functions and parts of the robot program
     - connecting to the server for the gate opener 
     - line tracker 
@@ -25,6 +25,8 @@ Monday 21st May
 - completing core code for robot
  - extending and improving code 
     - having problems with our code, robot keeps moving around in circles when code is executed and run 
+    - also found a problem that the right motor of the robot was turning the wheel backwards (left motor was going in the           right direction)
+    - settling with the DELL slider instead of the marble roller as not necessary and the DELL slider works perfectly fine 
    
  
  - AVC progress report due Monday 21st May, 11.59pm 
