@@ -3,6 +3,8 @@
 #include  <time.h>
 #include "E101.h"
 
+FILE *file;
+
 void getThreshold(){
 	take_picture(); // 320 * 240
 	// 0 = red
@@ -26,16 +28,16 @@ void getThreshold(){
 	printf("%d max %d min\n", max, min);
 }
 
+
 int main()
 {
 
 	init();
-	FILE *file;
-	file = fopen("log.txt", "w");
+	file = fopen("log.txt", "w");	
 
 	for(int i=0; i<15; i++) {
 		getThreshold();
 		sleep1(1, 0);
 	}
-	fclose(file)
+	fclose(file);
 }
