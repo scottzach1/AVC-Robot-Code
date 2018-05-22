@@ -31,7 +31,6 @@ Monday 21st May
     - having problems with our code, robot keeps moving around in circles when code is executed and run - FIXED
     - also found a problem that the right motor of the robot was turning the wheel backwards (left motor was going in the           right direction) - FIXED 
     - settling with the DELL slider instead of the marble roller as not necessary and the DELL slider works perfectly fine
-    - IR sensors connected to both sides of the camera - still need to sttach last IR sensor on the front (below the camera?)
     
 Tuesday 22nd May 
 - robot can successfully navigate its way through quadrant a and b - up till quadrant c
