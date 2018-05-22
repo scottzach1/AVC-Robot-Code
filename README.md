@@ -58,7 +58,7 @@ Monday 21st May
     
 Tuesday 22nd May 
 - robot can successfully navigate its way through quadrant a and b - up till quadrant c
-- removing the DELL slider and replacing it with the marble roller as the DELL slider was not as smooth on the practice course   boards, it would stick to the board.
+- removing the DELL slider and replacing it with the marble roller as the DELL slider was not as smooth on the practice course   boards, it would stick to the board - works a lot better but have had to reduce the speed of the motors.
 - started on code for quadrant c - detecting lines to turn sharp corners 
 
    
