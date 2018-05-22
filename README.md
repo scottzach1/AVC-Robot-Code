@@ -1,7 +1,20 @@
 # avc
 Victoria University of Wellington - ENGR101 AVC Group Project
-
 Felix, Zac, Edward, Samantha
+
+IMPORTANT DATES:
+
+Week 1:ENGR101 terms test 1, Tuesday 1st May 
+
+Week 2: CYBR171 terms test 1 
+
+Week 3: COMP102 terms test 2 
+
+Week 4: ENGR121 test 2, Friday 25th May 
+        CYBR171 assignment 2 due Friday 1st June 
+
+
+
 
 WEEK 1:
 
@@ -35,9 +48,12 @@ Monday 21st May
 Tuesday 22nd May 
 - robot can successfully navigate its way through quadrant a and b - up till quadrant c
 - removing the DELL slider and replacing it with the marble roller as the DELL slider was not as smooth on the practice course   boards, it would stick to the board.
+- started on code for quadrant c - detecting lines to turn sharp corners 
 
    
  - CYBR171 assignment 2 due Friday 1st June 
  - AVC progress report due Monday 21st May, 11.59pm 
  
  Testing on Tuesday 29th May during our lab, 3pm - 5pm 
+ 
+ Final Report due Monday 11th June 11.59pm 
