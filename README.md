@@ -5,14 +5,25 @@ Felix, Zac, Edward, Samantha
 
 IMPORTANT DATES:
 
-Week 1:ENGR101 terms test 1, Tuesday 1st May 
+Week 1:
+        ENGR101 terms test 1, Tuesday 1st May 
 
-Week 2: CYBR171 terms test 1 
+Week 2: 
+        CYBR171 terms test 1 
 
-Week 3: COMP102 terms test 2 
+Week 3: 
+        COMP102 terms test 2 
 
-Week 4: ENGR121 test 2, Friday 25th May 
+Week 4: 
+        AVC progress report due Monday 21st May, 11.59pm
+        ENGR121 test 2, Friday 25th May 
         CYBR171 assignment 2 due Friday 1st June 
+        
+  
+ 
+ TESTING - Tuesday 29th May during our lab, 3pm - 5pm 
+ 
+ FINAL REPORT - due Monday 11th June, 11.59pm 
         
 //
 
@@ -51,7 +62,7 @@ Tuesday 22nd May
 - started on code for quadrant c - detecting lines to turn sharp corners 
 
    
- - CYBR171 assignment 2 due Friday 1st June 
+
  - AVC progress report due Monday 21st May, 11.59pm 
  
  Testing on Tuesday 29th May during our lab, 3pm - 5pm 
