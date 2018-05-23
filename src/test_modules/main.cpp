@@ -64,10 +64,8 @@ void getThr() {
 }
 
 void lineTracker() {
+    getThr();
     while(true) {
-        getThr();
-
-
         take_picture();
         // Calculate the current error
         int currentError = 0, numWhitePixels = 0;
@@ -99,44 +97,35 @@ void cornerTracker() {
     set_motor(2, -40);
     sleep1(1, 0);
     int corners = 0;
-    while (true) {
+    while(true) {
         take_picture();
         // Calculate the current error
-        int currentError = 0, numWhitePixels = 0, numRedPixels = 0;
+        int currentError = 0, numWhitePixels = 0;
         for (int i = 0; i < 320; i++) {
-            int white = get_pixel(120, (320 - i), 3);
-            int red = get_pixel(120, (320 - i), 0);
-            if (white > thr) {
-                currentError += (i -
-                                 160); // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
+            if (get_pixel(120, (320 - i), 3) > thr) {
+                currentError += (i - 160); // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
                 numWhitePixels++;
-            }
-            if (red > white + 50) {
-                numRedPixels++;
             }
         }
         printf("currentError: %d\n", currentError);
         // Find the proportional signal
         double proportionalSignal = 0;
-        if (numRedPixels > 100) {
-            printf("So much redness, %d\n", numRedPixels);
-            break;
-        } else if (numWhitePixels < 1) { // driveBackwards for 1 second
+        if (numWhitePixels < 1) { // driveBackwards for 1 second
             if (corners == 0) {
-                turnLeft();
-                corners = 1;
-                printf("Turned Left First Intersection\n");
+                 turnLeft();
+                 corners = 1;
+                 printf("Turned Left First Intersection\n");
             } else {
-                reverse();
+                 reverse();
             }
         } else if (numWhitePixels > 160) {
-            if (currentError < -10000) {
-                turnLeft();
-            } else if (currentError > 1000) {
-                turnRight();
-            } else {
-                proportionalSignal = kp * (currentError / numWhitePixels);
-            }
+             if (currentError<-10000) {
+                  turnLeft();
+             } else if (currentError>1000) {
+                  turnRight();
+             } else {
+                   proportionalSignal = kp * (currentError / numWhitePixels);
+             }
         } else {
             proportionalSignal = kp * (currentError / numWhitePixels);
         }

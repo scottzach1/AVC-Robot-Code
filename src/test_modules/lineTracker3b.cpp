@@ -2,16 +2,50 @@
 #include <stdio.h>
 #include "E101.h"
 
-int quad = 2;
-double kp = 0.4, kd = 0.0;
+int quad = 1;
+double kp = 0.40;
+int motorSpeed = -50;
+
+void openGate() {
+    char server_addr[15] = "130.195.6.196";
+    int port = 1024;
+    char message[24];
+    char send[] = "Please";
+    connect_to_server(server_addr, port);
+    send_to_server(send);
+    receive_from_server(message);
+    send_to_server(message);
+    printf("Gate Opened");
+    quad = 2;
+}
+
+void reverse() {
+    set_motor(1, 0);
+    set_motor(2, 0);
+    sleep1(0, 500000);
+    set_motor(1, 60); // Reverse motors
+    set_motor(2, 60);
+    sleep1(0, 500000);
+    set_motor(1, 0);
+    set_motor(1, 0);
+}
+
+void turnLeft() {
+    set_motor(1, 0);
+    set_motor(2, -80);
+    sleep1(0, 700000);
+    set_motor(1, 0); // Reverse motors
+    set_motor(2, 0);
+}
+
 
 void lineTracker() {
-    int motorSpeed = 50;
+    take_picture();
     // getThreshold
     int max = 0;
     int min = 255;
     char currentPixel;
-    for (int i=0; i<320; i++) {
+    for (int i = 0; i < 320; i++) {
         currentPixel = get_pixel(120, i, 3);
         if (currentPixel > max) {
             max = currentPixel;
@@ -20,13 +54,13 @@ void lineTracker() {
             min = currentPixel;
         }
     }
-
     int thr = (max + min) / 2;
-    int currentError = 0, previousError = 0;
+    printf("thr:%d\n", thr);
 
     while(quad == 2) {
+        take_picture();
         // Calculate the current error
-        int numWhitePixels = 0;
+        int currentError = 0, numWhitePixels = 0;
         for (int i = 0; i < 320; i++) {
             if (get_pixel(120, (320 - i), 3) > thr) {
                 currentError += (i - 160); // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
@@ -36,28 +70,24 @@ void lineTracker() {
         // Find the proportional signal
         double proportionalSignal = 0;
         if (numWhitePixels < 1) { // driveBackwards for 1 second
-            set_motor(1, 60); // Reverse motors
-            set_motor(2, 60);
-            sleep1(1, 0);
-            set_motor(1, 0);
-            set_motor(1, 0);
+            reverse();
         } else {
             proportionalSignal = kp * (currentError / numWhitePixels);
         }
-        // Find the derivativeSignal
-        double derivativeSignal = kd * (currentError - previousError);
-        previousError = currentError;
-
         // Alter motor speeds
-        set_motor(1, motorSpeed + proportionalSignal - derivativeSignal); // left
-        set_motor(2, motorSpeed - proportionalSignal + derivativeSignal); // right
+        printf("pSig: %d\n", proportionalSignal);
+        set_motor(1, motorSpeed - proportionalSignal);
+        set_motor(2, motorSpeed + proportionalSignal);
     }
+    printf("Line tracked");
 }
 
 int main() {
     init();
     try {
-        lineTracker();
+        //openGate();
+        //lineTracker();
+        turnLeft();
     } catch (long e) {
         printf("Caught error %l", e);
         set_motor(1, 0);
