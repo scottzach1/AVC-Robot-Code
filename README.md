@@ -3,6 +3,30 @@ Victoria University of Wellington - ENGR101 AVC Group Project
 
 Felix, Zac, Edward, Samantha
 
+IMPORTANT DATES:
+
+Week 1:
+        ENGR101 terms test 1, Tuesday 1st May 
+
+Week 2: 
+        CYBR171 terms test 1 
+
+Week 3: 
+        COMP102 terms test 2 
+
+Week 4: 
+        AVC progress report due Monday 21st May, 11.59pm
+        ENGR121 test 2, Friday 25th May 
+        CYBR171 assignment 2 due Friday 1st June 
+        
+  
+ 
+ TESTING - Tuesday 29th May during our lab, 3pm - 5pm 
+ 
+ FINAL REPORT - due Monday 11th June, 11.59pm 
+        
+//
+
 WEEK 1:
 
 Started building the robot 
@@ -31,8 +55,16 @@ Monday 21st May
     - having problems with our code, robot keeps moving around in circles when code is executed and run - FIXED
     - also found a problem that the right motor of the robot was turning the wheel backwards (left motor was going in the           right direction) - FIXED 
     - settling with the DELL slider instead of the marble roller as not necessary and the DELL slider works perfectly fine
+    
+Tuesday 22nd May 
+- robot can successfully navigate its way through quadrant a and b - up till quadrant c
+- removing the DELL slider and replacing it with the marble roller as the DELL slider was not as smooth on the practice course   boards, it would stick to the board - works a lot better but have had to reduce the speed of the motors.
+- started on code for quadrant c - detecting lines to turn sharp corners 
+
    
- 
+
  - AVC progress report due Monday 21st May, 11.59pm 
  
  Testing on Tuesday 29th May during our lab, 3pm - 5pm 
+ 
+ Final Report due Monday 11th June 11.59pm 
