@@ -2,9 +2,9 @@
 #include <stdio.h>
 #include "E101.h"
 
-double kp = 0.32;
+double kp = 0.3;
 int motorSpeed = -45;
-int max, min, thr;
+int max, min, thr, initThr;
 
 void openGate() {
     char server_addr[15] = "130.195.6.196";
@@ -30,21 +30,33 @@ void reverse() {
 }
 void turnLeft() {
     printf("TurnLeft\n");
-    set_motor(1, 0);
-    set_motor(2, -80);
-    sleep1(0, 650000);
+    set_motor(1, 70);
+    set_motor(2, 0);
+    sleep1(0, 450000);
     set_motor(1, 0); // Reverse motors
     set_motor(2, 0);
+    set_motor(1, -45);
+    set_motor(2, -45);
+    sleep1(0, 450000);
+    set_motor(1, 0);
+    set_motor(1, 0);
 }
+
 void turnRight() {
     printf("TurnRight\n");
-    set_motor(1, -70);
+    set_motor(1, -70); // Undo Turn
     set_motor(2, 0);
-    sleep1(0, 700000);
-    set_motor(1, 0); // Reverse motors
+    sleep1(0, 450000);
+    set_motor(1, 0); // Stop
+    set_motor(2, 0);
+    sleep1(1, 0);
+    set_motor(1, 0); // Right Turn
+    set_motor(2, 70);
+    sleep1(0, 450000);
+    set_motor(1, 0); // Stop
     set_motor(2, 0);
 }
-void getThr() {
+int getThr() {
     take_picture();
     // getThreshold
     max = 0;
@@ -59,13 +71,16 @@ void getThr() {
             min = currentPixel;
         }
     }
-    thr = (max + min) / 2;
+    int var = (max + min) / 2;
     printf("thr:%d\n", thr);
+    return var;
 }
 
 void lineTracker() {
-    getThr();
     while(true) {
+        thr = getThr();
+
+
         take_picture();
         // Calculate the current error
         int currentError = 0, numWhitePixels = 0;
@@ -92,42 +107,56 @@ void lineTracker() {
     printf("Line tracked\n");
 }
 
-void cornerTracker() {
+void cornerTracker() {/*
     set_motor(1, -40);
     set_motor(2, -40);
     sleep1(1, 0);
-    int corners = 0;
-    while(true) {
+    int corners = 0;*/
+    while (true) {
         take_picture();
         // Calculate the current error
-        int currentError = 0, numWhitePixels = 0;
+        int currentError = 0, numWhitePixels = 0, numRedPixels = 0;
         for (int i = 0; i < 320; i++) {
-            if (get_pixel(120, (320 - i), 3) > thr) {
-                currentError += (i - 160); // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
+            int white = get_pixel(120, (320 - i), 3);
+            int red = get_pixel(120, (320 - i), 0);
+            if (white > initThr) {
+                currentError += (i -
+                                 160); // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
                 numWhitePixels++;
             }
+            if (red > white + 50) {
+                numRedPixels++;
+            }
         }
-        printf("currentError: %d\n", currentError);
+        printf("#thr: %d, wPx: %d\n", initThr, numWhitePixels);
         // Find the proportional signal
         double proportionalSignal = 0;
-        if (numWhitePixels < 1) { // driveBackwards for 1 second
-            if (corners == 0) {
-                 turnLeft();
-                 corners = 1;
-                 printf("Turned Left First Intersection\n");
-            } else {
-                 reverse();
+        if (numRedPixels > 100) {
+            printf("So much redness, %d\n", numRedPixels);
+            break;
+        } else if (numWhitePixels < 15) { // driveBackwards for 1 second
+            printf("Corner Deteccc\n");
+            turnLeft();
+            take_picture();
+            for (int i = 0; i < 320; i++) {
+                int white = get_pixel(120, (320 - i), 3);
+                int red = get_pixel(120, (320 - i), 0);
+                if (white > initThr) {
+                    currentError += (i - 160);
+                    // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
+                    numWhitePixels++;
+                }
             }
-        } else if (numWhitePixels > 160) {
-             if (currentError<-10000) {
-                  turnLeft();
-             } else if (currentError>1000) {
-                  turnRight();
-             } else {
-                   proportionalSignal = kp * (currentError / numWhitePixels);
-             }
+            set_motor(1, 0);
+            set_motor(2, 0);
+            printf("numWhitePixelsAfterTurn: %d\n", numWhitePixels);
+            sleep1(3, 0);
+
+            if (numWhitePixels < 5) {
+                turnRight();
+            }
         } else {
-            proportionalSignal = kp * (currentError / numWhitePixels);
+            proportionalSignal = (kp + 0.5) * (currentError / numWhitePixels);
         }
         // Alter motor speeds
 //        printf("pSig: %d\n", proportionalSignal);
@@ -140,9 +169,11 @@ void cornerTracker() {
 int main() {
     init();
     try {
+        initThr = getThr();
         //turnLeft();
+        //sleep1(1, 0);
         //turnRight();
-        openGate();
+        //openGate();
         lineTracker();
         cornerTracker();
         set_motor(1, 0);
