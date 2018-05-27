@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include "E101.h"
 
-double kp = 0.32;
-int motorSpeed = -45;
+double kp = 0.28;
+int motorSpeed = -42;
 int max, min, thr, initThr;
 
 void openGate() {
@@ -25,7 +25,7 @@ void reverse() {
     sleep1(0, 500000);
     set_motor(1, 60); // Reverse motors
     set_motor(2, 60);
-    sleep1(0, 500000);
+    sleep1(0, 250000);
     set_motor(1, 0);
     set_motor(1, 0);
 }
@@ -37,21 +37,21 @@ void stop() {
 
 void turnLeft() {
     printf("TurnLeft\n");
-    take_picture();
+    take_picture();/*
     set_motor(1, -40);
     set_motor(2, -40);
-    sleep1(0, 600000);
+    sleep1(0, 300000);*/
     stop();
-    sleep1(1, 0);
+    sleep1(0, 0);
     // Calculate the current error
     int currentError = 0, numWhitePixels = 0;
     double proportionalSignal = 100000;
 
     while (numWhitePixels < 50 && (proportionalSignal > 50 || proportionalSignal < -50)) {
         take_picture();
-        set_motor(1, 0);
+        set_motor(1, 32);
         set_motor(2, -80);
-        sleep1(0, 500000);
+        sleep1(0, 400000);
         currentError = 0, numWhitePixels = 0, proportionalSignal = 0;
         for (int i = 0; i < 320; i++) {
             if (get_pixel(120, i, 3) > initThr) {
@@ -65,17 +65,17 @@ void turnLeft() {
     }
     stop();
     printf("Stopped turning Left\n");
-    printf("exited with a wPx %d>50 iThr -50<%d<50\n", numWhitePixels, initThr);
+    printf("exited with a wPx %d>50 propP -50<%d<50\n", numWhitePixels, proportionalSignal);
 }
 
 void turnRight() {
     printf("RightLeft\n");
-    take_picture();
+    take_picture();/*
     set_motor(1, -40);
     set_motor(2, -40);
-    sleep1(0, 600000);
+    sleep1(0, 600000);*/
     stop();
-    sleep1(1, 0);
+    sleep1(0, 0);
     // Calculate the current error
     int currentError = 0, numWhitePixels = 0;
     double proportionalSignal = 100000;
@@ -83,8 +83,8 @@ void turnRight() {
     while (numWhitePixels < 50 && (proportionalSignal > 50 || proportionalSignal < -50)) {
         take_picture();
         set_motor(1, -80);
-        set_motor(2, 0);
-        sleep1(1, 300000);
+        set_motor(2, 30);
+        sleep1(0, 400000);
         currentError = 0, numWhitePixels = 0, proportionalSignal = 0;
         for (int i = 0; i < 320; i++) {
             if (get_pixel(120, i, 3) > initThr) {
@@ -98,7 +98,7 @@ void turnRight() {
     }
     stop();
     printf("Stopped turning Right\n");
-    printf("exited with a wPx %d>50 iThr -50<%d<50\n", numWhitePixels, initThr);
+    printf("exited with a wPx %d>50 propP -50<%d<50\n", numWhitePixels, proportionalSignal);
 }
 int getThr() {
     take_picture();
@@ -167,7 +167,7 @@ void cornerTracker() {
                 numRedPixels++;
             }
         }
-        printf("#thr: %d, wPx: %d\n", initThr, numWhitePixels);
+//        printf("#thr: %d, wPx: %d\n", initThr, numWhitePixels);
         // Find the proportional signal
         double proportionalSignal = 0;
         if (numRedPixels > 100) {
@@ -180,25 +180,29 @@ void cornerTracker() {
             // Check Left Right
             int leftCount = 0, rightCount = 0;
             for (int i = 0; i < 240; i++) {
-                int left = get_pixel(i, 320, 3);
-                int right = get_pixel(i, 0, 3);
+                int left = get_pixel(i, 310, 3);
+                int right = get_pixel(i, 10, 3);
                 if (left > initThr) {
                     leftCount++;
                 }
                 if (right > initThr) {
                     rightCount++;
-                }
+                } else {
+			//printf("lCount %d rCount %d numWhitePx %d\n", leftCount, rightCount, numWhitePixels);
+		}
             }
-            printf("leftCount: %d, rightCount: %d\n", leftCount, rightCount);
+//            printf("leftCount: %d, rightCount: %d\n", leftCount, rightCount);
 	    //break;
-            if (leftCount >= 30) {
+            if (leftCount >= 70) {
+                printf("lCount %d, rCount %d numWhite %d\n", leftCount, rightCount, numWhitePixels);
                 printf("Turn Left()\n");
                 turnLeft();
-            } else if (rightCount >= 30) {
+            } else if (rightCount >= 60) {
+                printf("lCount %d, rCount %d numWhite %d\n", leftCount, rightCount, numWhitePixels);
                 printf("Turn Right()\n");
                 turnRight();
             } else {
-                //reverse();
+		reverse();
             }
         } else {
             proportionalSignal = (kp + 0.2) * (currentError / numWhitePixels);
