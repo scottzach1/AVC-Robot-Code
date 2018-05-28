@@ -3,9 +3,10 @@
 #include <stdio.h>
 #include "E101.h"
 
-double kp = 0.28;
+double kp = 0.28, kd = -0.4;
 int motorSpeed = -55;
 int max, min, thr, initThr;
+int prevError = 0;
 FILE *file;
 
 void openGate() {
@@ -62,6 +63,7 @@ void turnLeft() {
         }
         if (numWhitePixels > 0) {
             proportionalSignal = kp * (currentError / numWhitePixels);
+            prevError = currentError;
         }
     }
     stop();
@@ -135,18 +137,20 @@ void lineTracker() {
             }
         }
         // Find the proportional signal
-        double proportionalSignal = 0;
+        double proportionalSignal = 0, derivativeSignal = 0;
         if (numWhitePixels < 1) { // driveBackwards for 1 second
             reverse();
         } else if (numWhitePixels > 310) {
             break;
         } else {
             proportionalSignal = kp * (currentError / numWhitePixels);
+            derivativeSignal = kd * (currentError - prevError);
+            prevError = currentError;
         }
         // Alter motor speeds
         //fprintf(file, "pSig: %d wPx %d cEr\n", proportionalSignal, numWhitePixels, currentError);
-        set_motor(1, motorSpeed - proportionalSignal);
-        set_motor(2, motorSpeed + proportionalSignal);
+        set_motor(1, motorSpeed - proportionalSignal + derivativeSignal);
+        set_motor(2, motorSpeed + proportionalSignal - derivativeSignal);
     }
     fprintf(file, "Line tracked\n");
 }
@@ -170,7 +174,7 @@ void cornerTracker() {
         }
 //        fprintf(file, "#thr: %d, wPx: %d\n", initThr, numWhitePixels);
         // Find the proportional signal
-        double proportionalSignal = 0;
+        double proportionalSignal = 0, derivativeSignal = 0;
         if (numRedPixels > 100) {
             fprintf(file, "So much redness, %d\n", numRedPixels);
             break;
@@ -206,12 +210,13 @@ void cornerTracker() {
 		reverse();
             }
         } else {
-            proportionalSignal = (kp + 0.2) * (currentError / numWhitePixels);
-
+            proportionalSignal = (kp) * (currentError / numWhitePixels);
+            derivativeSignal = kd * (currentError - prevError);
+            prevError = currentError;
             // Alter motor speeds
 //        fprintf(file, "pSig: %d\n", proportionalSignal);
-            set_motor(1, motorSpeed - proportionalSignal);
-            set_motor(2, motorSpeed + proportionalSignal);
+            set_motor(1, motorSpeed - proportionalSignal + derivativeSignal);
+            set_motor(2, motorSpeed + proportionalSignal - derivativeSignal);
         }
     }
     fprintf(file, "Line tracked\n");
