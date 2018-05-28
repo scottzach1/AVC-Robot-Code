@@ -4,7 +4,7 @@
 #include "E101.h"
 
 double kp = 0.28;
-int motorSpeed = -42;
+int motorSpeed = -55;
 int max, min, thr, initThr;
 FILE *file;
 
@@ -227,8 +227,8 @@ int main() {
         //turnLeft();
         //sleep1(1, 0);
         //turnRight();
-        //openGate();
-        //lineTracker();
+        openGate();
+        lineTracker();
         cornerTracker();
         set_motor(1, 0);
         set_motor(2, 0);
