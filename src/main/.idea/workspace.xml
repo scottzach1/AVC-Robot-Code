@@ -22,8 +22,11 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="461">
-              <caret line="214" column="37" lean-forward="true" selection-start-line="214" selection-start-column="37" selection-end-line="214" selection-end-column="37" />
+            <state relative-caret-position="392">
+              <caret line="203" column="38" selection-start-line="203" selection-start-column="38" selection-end-line="203" selection-end-column="38" />
+              <folding>
+                <marker date="1527559974018" expanded="true" signature="5356:5459" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -33,6 +36,8 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>printf(&quot;</find>
+      <find>initThr</find>
+      <find>for (int i = 0</find>
     </findStrings>
   </component>
   <component name="IdeDocumentHistory">
@@ -51,7 +56,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-9" />
     <option name="width" value="1722" />
     <option name="height" value="978" />
@@ -103,12 +108,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1527460550332</updated>
-      <workItem from="1527460554927" duration="4230000" />
+      <workItem from="1527460554927" duration="8470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="4230000" />
+    <option name="totallyTimeSpent" value="8470000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1721" height="935" extended-state="6" />
@@ -148,8 +153,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="461">
-          <caret line="214" column="37" lean-forward="true" selection-start-line="214" selection-start-column="37" selection-end-line="214" selection-end-column="37" />
+        <state relative-caret-position="392">
+          <caret line="203" column="38" selection-start-line="203" selection-start-column="38" selection-end-line="203" selection-end-column="38" />
+          <folding>
+            <marker date="1527559974018" expanded="true" signature="5356:5459" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
