@@ -3,7 +3,7 @@
 #include <stdio.h>
 #include "E101.h"
 
-double kp = 0.28, kd = -0.4;
+double kp = 0.28, kd = 0;
 int motorSpeed = -55;
 int max, min, thr, initThr;
 int prevError = 0;
