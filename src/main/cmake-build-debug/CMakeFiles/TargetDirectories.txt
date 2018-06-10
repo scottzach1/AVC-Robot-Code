@@ -1,0 +1,3 @@
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/cmake-build-debug/CMakeFiles/avc.dir

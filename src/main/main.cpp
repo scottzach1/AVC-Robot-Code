@@ -4,7 +4,7 @@
 
 double kp = 0.28;
 int motorSpeed = -55;
-int max, min, thr, initThr;
+int max, min, thr;
 FILE *file;
 
 void openGate() {
@@ -19,6 +19,11 @@ void openGate() {
     fprintf(file, "Gate Opened\n");
 }
 
+void stop() {
+    set_motor(1, 0);
+    set_motor(2, 0);
+}
+
 void reverse() {
     set_motor(1, 0);
     set_motor(2, 0);
@@ -26,21 +31,12 @@ void reverse() {
     set_motor(1, 60); // Reverse motors
     set_motor(2, 60);
     sleep1(0, 250000);
-    set_motor(1, 0);
-    set_motor(1, 0);
-}
-
-void stop() {
-    set_motor(1, 0);
-    set_motor(2, 0);
+    stop();
 }
 
 void turnLeft() {
     fprintf(file, "TurnLeft\n");
-    take_picture();/*
-    set_motor(1, -40);
-    set_motor(2, -40);
-    sleep1(0, 300000);*/
+    take_picture();
     stop();
     sleep1(0, 0);
     // Calculate the current error
@@ -70,12 +66,8 @@ void turnLeft() {
 
 void turnRight() {
     fprintf(file, "RightLeft\n");
-    take_picture();/*
-    set_motor(1, -40);
-    set_motor(2, -40);
-    sleep1(0, 600000);*/
+    take_picture();
     stop();
-    sleep1(0, 0);
     // Calculate the current error
     int currentError = 0, numWhitePixels = 0;
     double proportionalSignal = 100000;
@@ -100,6 +92,7 @@ void turnRight() {
     fprintf(file, "Stopped turning Right\n");
     fprintf(file, "exited with a wPx %d>50 propP -50<%f<50\n", numWhitePixels, proportionalSignal);
 }
+
 int getThr() {
     take_picture();
     max = 0;
@@ -122,8 +115,6 @@ int getThr() {
 void lineTracker() {
     while(true) {
         thr = getThr();
-
-
         take_picture();
         // Calculate the current error
         int currentError = 0, numWhitePixels = 0;
@@ -153,15 +144,14 @@ void lineTracker() {
 void cornerTracker() {
     while (true) {
         take_picture();
-        //thr = getThr();
         // Calculate the current error
         int currentError = 0, numWhitePixels = 0, numRedPixels = 0;
         for (int i = 0; i < 320; i++) {
             int white = get_pixel(120, (320 - i), 3);
             int red = get_pixel(120, (320 - i), 0);
+            // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
             if (white > thr) {
                 currentError += (i - 160);
-                // * get_pixel(120, (320-i), 3); // (320-0=i) camera upside-down // (i - 160) set middle at 0
                 numWhitePixels++;
             }
             if (red > white + 50) {
@@ -177,10 +167,6 @@ void cornerTracker() {
         } else if (numWhitePixels < 15) { // driveBackwards for 1 second
             fprintf(file, "Corner Deteccc\n");
             stop();
-//            set_motor(1, 50);
-//            set_motor(2, 50);
-//            sleep1(0, 500000);
-//            stop();
             take_picture();
             // Check Left Right
             int leftCount = 0, rightCount = 0;
@@ -192,8 +178,6 @@ void cornerTracker() {
                 }
                 if (right > thr) {
                     rightCount++;
-                } else {
-                    //fprintf(file, "lCount %d rCount %d numWhitePx %d\n", leftCount, rightCount, numWhitePixels);
                 }
             }
             fprintf(file, "leftCount: %d, rightCount: %d\n", leftCount, rightCount);
@@ -227,17 +211,12 @@ int main() {
     printf("Log file created\n");
     try {
         thr = getThr();
-        //turnLeft();
-        //sleep1(1, 0);
-        //turnRight();
         openGate();
         lineTracker();
         cornerTracker();
-        set_motor(1, 0);
-        set_motor(2, 0);
+        stop();
     } catch (long e) {
         printf("Caught error %ld\n", e);
-        set_motor(1, 0);
-        set_motor(2, 0);
+        stop();
     }
 }

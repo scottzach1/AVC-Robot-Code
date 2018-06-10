@@ -1,0 +1,1 @@
+/usr/bin/c++  -g   CMakeFiles/avc.dir/main.cpp.o  -o avc 

@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/E101.h
+
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/main.cpp
+iostream
+-
+stdio.h
+-
+E101.h
+/home/zacipult/Documents/University/ENGR 101/avc/src/main/E101.h
+
